@@ -7,6 +7,7 @@ RUN apt-get update && apt-get upgrade -qy && \
     apt-get install -qy \
         clang \
         clang-tools \
+        gcc-multilib \
         cmake \
         curl \
         git \
@@ -36,10 +37,16 @@ ENV PATH=/opt/gcc-arm-none-eabi-10-2020-q4-major/bin:$PATH
 # Python packages commonly used by apps
 RUN pip3 install ledgerblue pytest
 
-# Latest Nano S SDK
-RUN cd /opt && git clone --branch 2.0.0-1 https://github.com/LedgerHQ/nanos-secure-sdk.git nanos-secure-sdk
+# Latest Nano X SDK
+# We cannot used the tagged version 1.2.4-5.1
+# Due to compilation error `error: fallthrough annotation does not directly precede switch label`
+RUN cd /opt && \
+    git clone https://github.com/LedgerHQ/nanox-secure-sdk.git nanox-secure-sdk && \
+    cd nanox-secure-sdk && \
+    git checkout a79eaf92aef434a5e63caca6b238fd00db523c8f && \
+    cd ..
 
-ENV BOLOS_SDK=/opt/nanos-secure-sdk
+ENV BOLOS_SDK=/opt/nanox-secure-sdk
 
 WORKDIR /app
 
