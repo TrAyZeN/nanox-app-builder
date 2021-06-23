@@ -1,6 +1,6 @@
-# Ledger Application Builder
+# Ledger Nano X Application Builder
 
-This container image contains all dependencies to compile an application for the Nano S.
+This container image contains all dependencies to compile an application for the Nano X.
 
 ## Build the container image
 
@@ -10,11 +10,11 @@ Container can be build using standard tools:
 
 ```bash
 # Docker
-sudo docker build -t ledger-app-builder:2.0.0-1 .
+sudo docker build -t nanox-app-builder .
 # Podman (from https://podman.io/)
-podman build -t ledger-app-builder:2.0.0-1 .
+podman build -t nanox-app-builder .
 # Buildah (from https://buildah.io/)
-buildah bud -t ledger-app-builder:2.0.0-1 .
+buildah bud -t nanox-app-builder .
 ```
 
 ### App Scanner
@@ -27,20 +27,20 @@ Then, build container with:
 
 ```bash
 # Docker
-sudo docker build -t ledger-app-scanner:2.0.0-1 .
+sudo docker build -t nanox-app-scanner .
 # Podman (from https://podman.io/)
-podman build -t ledger-app-scanner:2.0.0-1 .
+podman build -t nanox-app-scanner .
 # Buildah (from https://buildah.io/)
-buildah bud -t ledger-app-scanner:2.0.0-1 .
+buildah bud -t nanox-app-scanner .
 ```
 
 ## Compile your app in the container
 
-In the source folder of your Nano S application:
+In the source folder of your Nano X application:
 
 ```bash
 $ # docker can be replaced with podman or buildah without sudo
-$ sudo docker run --rm -ti -v "$(realpath .):/app" ledger-app-builder:2.0.0-1
+$ sudo docker run --rm -ti -v "$(realpath .):/app" nanox-app-builder
 root@656be163fe84:/app# make
 ```
 
@@ -48,6 +48,6 @@ The Docker image includes the [Clang Static Analyzer](https://clang-analyzer.llv
 
 ```bash
 $ # docker can be replaced with podman or buildah without sudo
-$ sudo docker run --rm -ti -v "$(realpath .):/app" ledger-app-builder:2.0.0-1
+$ sudo docker run --rm -ti -v "$(realpath .):/app" nanox-app-builder
 root@656be163fe84:/app# make scan-build
 ```
